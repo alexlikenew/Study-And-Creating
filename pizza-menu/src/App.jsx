@@ -1,5 +1,7 @@
+import { findRenderedComponentWithType } from 'react-dom/test-utils'
 import './App.css'
-
+import React from 'react'
+import './index.css'
 const pizzaData = [
 	{
 		name: 'Focaccia',
@@ -47,20 +49,47 @@ const pizzaData = [
 
 function App() {
 	return (
-		<div>
-			<h1>Hello React!</h1>
-			<Pizza />
-			<Pizza />
-			<Pizza />
-			<Pizza />
+		<div className='container'>
+			<Header />
+			<Menu />
+			<Footer />
 		</div>
 	)
+}
+
+function Header() {
+	return (
+		<header className='header'>
+			<h1>Fast React Pizza Co.</h1>
+		</header>
+	)
+}
+function Menu() {
+	return (
+		<main className='menu'>
+			<h2>Our new Menu for our customers</h2>
+			<Pizza />
+			<Pizza />
+			<Pizza />
+			<Pizza />
+		</main>
+	)
+}
+function Footer() {
+	const hour = new Date().getHours()
+	const openHour = 12
+	const closeHour = 22
+	const isOpen = hour >= openHour && hour <= closeHour
+	// isOpen ? alert('We`re open now') : alert('Sorry we are closed')
+
+	return <footer className='footer'>{new Date().toLocaleDateString()} Were currently open</footer>
+	// return React.createElement('footer', null, 'Were currently open')
 }
 function Pizza() {
 	return (
 		<div>
 			<img src='../public/pizzas/spinaci.jpg' alt='spinacci' />
-			<h2>Pizza Spinaci</h2>
+			<h3>Pizza Spinaci</h3>
 			<p>Tomato, mozarella, spinach, and ricotta cheese</p>
 		</div>
 	)
