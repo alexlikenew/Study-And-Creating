@@ -214,3 +214,16 @@ booksAfterDelete
 // 3) update book object in array
 const booksAfterUpdate = booksAfterDelete.map(book => (book.id == 1 ? { ...book, pages: 100 } : book))
 booksAfterUpdate
+
+// ASYNCHRONOUS
+
+fetch('https://jsonplaceholder.typicode.com/todos')
+	.then(res => res.json())
+	.then(data => console.log(data))
+// ASYNC AWAIT
+async function getTodos() {
+	const res = await fetch('https://jsonplaceholder.typicode.com/todos')
+	const data = await res.json()
+	console.log(data)
+}
+getTodos()
