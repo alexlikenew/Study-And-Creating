@@ -68,13 +68,30 @@ function Menu() {
 	return (
 		<main className='menu'>
 			<h2>Our new Menu for our customers</h2>
-			<Pizza />
-			<Pizza />
-			<Pizza />
-			<Pizza />
+			<Pizza
+				name='Pizza Spinaci'
+				ingredients='Tomato, mozarella, spinach, and ricotta cheese'
+				photoName='../public/pizzas/spinaci.jpg'
+				price={10}
+			/>
+			<Pizza name='Pizza Funhhi' ingredients='tomato , mashrooms' price={12} photoName='../public/pizzas/funghi.jpg' />
 		</main>
 	)
 }
+function Pizza(props) {
+	console.log(props)
+	return (
+		<div className='pizza'>
+			<img src={props.photoName} alt={props.name} />
+			<div>
+				<h3>{props.name}</h3>
+				<p>{props.ingredients}</p>
+				<span>{props.price}</span>
+			</div>
+		</div>
+	)
+}
+
 function Footer() {
 	const hour = new Date().getHours()
 	const openHour = 12
@@ -84,15 +101,6 @@ function Footer() {
 
 	return <footer className='footer'>{new Date().toLocaleDateString()} Were currently open</footer>
 	// return React.createElement('footer', null, 'Were currently open')
-}
-function Pizza() {
-	return (
-		<div>
-			<img src='../public/pizzas/spinaci.jpg' alt='spinacci' />
-			<h3>Pizza Spinaci</h3>
-			<p>Tomato, mozarella, spinach, and ricotta cheese</p>
-		</div>
-	)
 }
 
 export default App
