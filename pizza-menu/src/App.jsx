@@ -71,12 +71,16 @@ function Menu() {
 	return (
 		<main className='menu'>
 			<h2>Our new Menu for our customers</h2>
+
 			{numPizzas > 0 ? (
-				<ul className='pizzas'>
-					{pizzas.map(pizza => (
-						<Pizza pizzaObj={pizza} key={pizza.name} />
-					))}
-				</ul>
+				<>
+					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+					<ul className='pizzas'>
+						{pizzas.map(pizza => (
+							<Pizza pizzaObj={pizza} key={pizza.name} />
+						))}
+					</ul>
+				</>
 			) : (
 				<p>Please come back later</p>
 			)}
@@ -91,17 +95,17 @@ function Menu() {
 		</main>
 	)
 }
-function Pizza(props) {
-	if (props.pizzaObj.soldOut) {
-		return null
-	}
+function Pizza({ pizzaObj }) {
+	// if (pizzaObj.soldOut) {
+	// 	return null
+	// }
 	return (
-		<li className='pizza'>
-			<img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+		<li className={`pizza ${pizzaObj.soldOut ? 'sold-out' : ''}`}>
+			<img src={pizzaObj.photoName} alt={pizzaObj.name} />
 			<div>
-				<h3>{props.pizzaObj.name}</h3>
-				<p>{props.pizzaObj.ingredients}</p>
-				<span>{props.pizzaObj.price}</span>
+				<h3>{pizzaObj.name}</h3>
+				<p>{pizzaObj.ingredients}</p>
+				<span>{pizzaObj.soldOut ? 'Sold out' : pizzaObj.price}</span>
 				{/* <img src='' alt='' /> */}
 			</div>
 		</li>
@@ -119,13 +123,19 @@ function Footer() {
 	// return (<p>Were closed now!</p>)
 	// 	}
 
-	return <footer className='footer'>{isOpen ? <Order closeHour={closeHour} /> : <p>Were closed now!</p>}</footer>
+	return (
+		<footer className='footer'>
+			{isOpen ? <Order closeHour={closeHour} openHour={openHour} /> : <p>Were closed now!</p>}
+		</footer>
+	)
 	// return React.createElement('footer', null, 'Were currently open')
 }
-function Order(props) {
+function Order({ closeHour, openHour }) {
 	return (
 		<div className='order'>
-			<p>Were open until {props.closeHour}</p>
+			<p>
+				Were open form {openHour} until {closeHour}
+			</p>
 			<button className='btn'>Order</button>
 		</div>
 	)
