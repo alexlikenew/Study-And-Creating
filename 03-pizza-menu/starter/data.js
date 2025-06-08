@@ -42,3 +42,4 @@ const pizzaData = [
     soldOut: false,
   },
 ];
+console.log(pizzaData[1]);
