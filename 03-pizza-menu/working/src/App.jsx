@@ -46,27 +46,88 @@ const pizzaData = [
         soldOut: false,
     },
 ];
-console.log(pizzaData[1]);
+
 
 function App() {
 
     return (
-        <div>
-            <h1>Hello react</h1>
-            <Pizza/>
-            <Pizza/>
-            <Pizza/>
+        <div className="container">
+            <Header/>
+            <Menu/>
+            <Footer/>
         </div>
 
     )
 }
 
-function Pizza() {
-    return <div>
-        <img src="../public/pizzas/spinaci.jpg" alt="Pizza Spinachi"/>
-        <h2>Pizza</h2>
-        <p>Bread with italian olive oil and rosemary</p>
-    </div>
+function Header() {
+    return (
+        <header className='header'>
+            <h1>Fast React Pizza Co.</h1>
+        </header>
+    )
 }
+
+function Menu() {
+
+    const pizzas = pizzaData;
+
+    return <main className='menu'>
+        <h2>Our menu</h2>
+
+
+        {pizzas.length > 0 ? (
+            <>
+                <p>example article</p>
+                <ul className='pizzas'>
+                    {pizzaData.map(pizza => <Pizza pizzaObj={pizza} key={pizza.name}/>)}
+                </ul>
+            </>
+        ) : <p>We`re still working on our menu</p>}
+
+
+    </main>
+}
+
+function Pizza({pizzaObj}) {
+
+    // if (pizzaObj.soldOut) {
+    //     return null
+    // }
+    return <li className={`pizza ${pizzaObj.soldOut ? 'sold-out' : null}`}>
+        <img src={pizzaObj.photoName} alt="Pizza "/>
+        <div>
+            <h2>{pizzaObj.name}</h2>
+            <p>{pizzaObj.ingredients}</p>
+            <span>{pizzaObj.soldOut ? 'Sold Out' : pizzaObj.price}</span>
+        </div>
+    </li>
+}
+
+function Footer() {
+    const hour = new Date().getHours();
+    const openHour = 12;
+    const closeHour = 22;
+    const isOpen = hour >= openHour && openHour < closeHour;
+
+    return (
+        <footer className='footer'>
+            {isOpen ? <Order closeHour={closeHour}/> :
+                <p>We`re happy to welcome you between {openHour} and {closeHour}</p>}
+        </footer>
+    )
+
+}
+
+function Order({closeHour}) {
+    return (
+        <div>
+            <p>We`re open until {closeHour}:00</p>
+            <button className="btn"> Order</button>
+        </div>
+
+    )
+}
+
 
 export default App
