@@ -49,14 +49,12 @@ const pizzaData = [
 
 
 function App() {
-
     return (
         <div className="container">
             <Header/>
             <Menu/>
             <Footer/>
         </div>
-
     )
 }
 
@@ -69,13 +67,9 @@ function Header() {
 }
 
 function Menu() {
-
     const pizzas = pizzaData;
-
     return <main className='menu'>
         <h2>Our menu</h2>
-
-
         {pizzas.length > 0 ? (
             <>
                 <p>example article</p>
@@ -104,6 +98,7 @@ function Pizza({pizzaObj}) {
     </li>
 }
 
+
 function Footer() {
     const hour = new Date().getHours();
     const openHour = 12;
@@ -116,7 +111,6 @@ function Footer() {
                 <p>We`re happy to welcome you between {openHour} and {closeHour}</p>}
         </footer>
     )
-
 }
 
 function Order({closeHour}) {
