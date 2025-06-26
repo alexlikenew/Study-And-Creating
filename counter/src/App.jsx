@@ -27,16 +27,16 @@ function App() {
     }
 
     function handleCount(e) {
-        setCount(e.target.value)
+        setCount(Number(e.target.value))
     }
 
     function handleStep(e) {
-        setStep(e.target.value)
+        setStep(Number(e.target.value))
     }
 
     function handleReset() {
         setCount(0)
-        setStep(0)
+        setStep(1)
     }
 
 
@@ -54,7 +54,7 @@ function App() {
                 <span style={{padding: '20px'}} className={'count'}>Count: {count}</span>
                 <button onClick={increaseCount}>+</button>
             </div>
-            {count > 0 || step > 0 ? <button onClick={() => handleReset}>Reset</button> : ""}
+            {count > 0 || step > 1 ? <button onClick={handleReset}>Reset</button> : ""}
             {count === 0 ? <span>Today is {date.toDateString()}</span> : ''}
             {count > 0 ? <span>{count} days from today is {date.toDateString()}</span> : ''}
             {count < 0 ? <span>{count} days ago from today was {date.toDateString()}</span> : ''}
