@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 // import './App.css'
@@ -54,9 +54,20 @@ const tempWatchedData = [
 const average = (arr) =>
     arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+const KEY = '6784f06d'
+
 export default function App() {
-    const [movies, setMovies] = useState(tempMovieData);
-    const [watched, setWatched] = useState(tempWatchedData);
+    const [movies, setMovies] = useState([]);
+    const [watched, setWatched] = useState([]);
+
+    useEffect(() => {
+
+        fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+            .then(res => res.json()).then(data => setMovies(data.Search))
+
+    }, []);
+
+
     return (
         <>
             <NavBar>
