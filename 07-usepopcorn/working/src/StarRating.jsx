@@ -13,7 +13,7 @@ const starContainerStyle = {
 
 export function StarRating({
                                maxRating = 5, color = 'blue', size = 48, messages = [],
-                               defaultRating = 0
+                               defaultRating = 0, onSetRating,
                            }) {
 
     const textStyle = {
@@ -29,6 +29,7 @@ export function StarRating({
 
     function handleRating(i) {
         setRating(i)
+        onSetRating(i)
     }
 
 
