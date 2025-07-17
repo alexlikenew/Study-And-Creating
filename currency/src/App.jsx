@@ -12,6 +12,7 @@ const [isLoading , setIsLoading] = useState(false)
 
   useEffect(() => {
     async function fetchRates(){
+
       setIsLoading(true)
       const res = await fetch(`https://api.frankfurter.dev/v1/latest?base=${currencyFrom}&symbols=${currencyTo}`);
       const data = await res.json();
@@ -19,6 +20,7 @@ const [isLoading , setIsLoading] = useState(false)
       setOutput(convertedAmount)
       setIsLoading(false)
     }
+    if (currencyFrom === currencyTo) return setOutput(amount)
     fetchRates()
   }, [amount]);
 
