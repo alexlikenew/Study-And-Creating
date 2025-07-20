@@ -42,13 +42,20 @@ function reducer(state , action){
                     ...state , balance: state.balance - 50
                 }
             case 'requestLoan':
+                const activeLoan = state.loan > 0
                 return {
-                    ...state , balance : state.balance + 5000 , loan : 5000
+                    ...state , balance : activeLoan ? state.balance : state.balance + 5000 , loan : activeLoan ? state.loan : 5000
                 }
                 case 'payLoan':
+                    const activeLoan2 = state.loan > 0
                 return {
-                    ...state , balance : state.balance + 5000 , loan : 5000
+                    ...state , balance : activeLoan2 ? state.balance - 5000 : state.balance , loan : activeLoan2 ? 0 : state.loan
                 }
+            case 'closeAccount':
+                const balanceEmpty = state.balance === 0
+                return{
+                    ...state ,    isActive: balanceEmpty  ? false : state.isActive
+            }
         }
 }
 
@@ -82,12 +89,12 @@ function App() {
                 </button>
             </p>
             <p>
-                <button onClick={() => {}} disabled={!isActive}>
+                <button onClick={() => dispatch({type:'payLoan'})} disabled={!isActive}>
                     Pay loan
                 </button>
             </p>
             <p>
-                <button onClick={() => {}} disabled={!isActive}>
+                <button onClick={() => dispatch({type:'closeAccount'})} disabled={!isActive}>
                     Close account
                 </button>
             </p>
