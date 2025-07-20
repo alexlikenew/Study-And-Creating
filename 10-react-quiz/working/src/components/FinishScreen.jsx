@@ -1,6 +1,11 @@
-export default function FinishScreen ({points , maxPossiblePoints}){
+export default function FinishScreen ({points , maxPossiblePoints,highscore,dispatch}){
 const percentage = (points / maxPossiblePoints) *100
     return(
+        <>
         <p className='result'>You scored <strong>{points}</strong> out of {maxPossiblePoints} ({Math.ceil(percentage)}) </p>
+        <p className='highscore'>(Highscore : {highscore} points</p>
+            <button onClick={()=>dispatch({type:'reset'})} className='btn btn-ui'>Reset Quiz</button>
+        </>
+
     )
 }
