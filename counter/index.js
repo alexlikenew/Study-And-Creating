@@ -741,7 +741,7 @@ const COMMIT_MESSAGES = [
     "Improved accessibility by labeling",]
 
 
-const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.bmp', '.webp', '.ico'];
+const ALLOWED_CODE_EXTENSIONS = ['.html', '.css', '.scss', '.js'];
 
 function getAllFiles(dirPath, arrayOfFiles = []) {
     const files = fs.readdirSync(dirPath);
@@ -751,9 +751,8 @@ function getAllFiles(dirPath, arrayOfFiles = []) {
         if (fs.statSync(fullPath).isDirectory()) {
             getAllFiles(fullPath, arrayOfFiles);
         } else {
-            // Sprawdź rozszerzenie pliku i pomiń obrazy
             const ext = path.extname(fullPath).toLowerCase();
-            if (!IMAGE_EXTENSIONS.includes(ext)) {
+            if (ALLOWED_CODE_EXTENSIONS.includes(ext)) {
                 arrayOfFiles.push(fullPath);
             }
         }
@@ -768,21 +767,23 @@ function getRandomElement(arr) {
 }
 
 function updateLastModifiedDateInFile(filePath) {
-    let content = fs.readFileSync(filePath, 'utf8');
-    const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+    try {
+        let content = fs.readFileSync(filePath, 'utf8');
+        const today = new Date().toISOString().slice(0, 10);
 
-    // Sprawdź, czy jest linia do zamiany
-    if (!content.match(/^\/\/ Last updated:.*$/m)) {
-        // Jeśli nie ma, dopisz na górze pliku
-        content = `// Last updated: ${today}\n` + content;
-        console.log(`ℹ️ Dodano linię "Last updated" w pliku: ${filePath}`);
-    } else {
-        // Zamień istniejącą linię
-        content = content.replace(/^\/\/ Last updated:.*$/m, `// Last updated: ${today}`);
-        console.log(`ℹ️ Zaktualizowano datę w pliku: ${filePath}`);
+        if (!content.match(/^\/\/ Last updated:.*$/m)) {
+            content = `// Last updated: ${today}\n` + content;
+            console.log(`ℹ️ Dodano linię "Last updated" w pliku: ${filePath}`);
+        } else {
+            content = content.replace(/^\/\/ Last updated:.*$/m, `// Last updated: ${today}`);
+            console.log(`ℹ️ Zaktualizowano datę w pliku: ${filePath}`);
+        }
+
+        fs.writeFileSync(filePath, content, 'utf8');
+    } catch (err) {
+        console.error(`❌ Błąd podczas zapisu pliku: ${filePath}`);
+        console.error(err);
     }
-
-    fs.writeFileSync(filePath, content, 'utf8');
 }
 
 async function commitAndPush(filePath, commitMessage) {
@@ -814,6 +815,7 @@ async function run() {
 
     for (let i = 0; i < 10; i++) {
         const randomFile = getRandomElement(allFiles);
+        console.log(`📄 Wybrano plik: ${randomFile}`); // <-- TU
 
         updateLastModifiedDateInFile(randomFile);
 
