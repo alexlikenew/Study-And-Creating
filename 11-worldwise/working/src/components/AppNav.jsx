@@ -2,6 +2,6 @@ import styles from './AppNav.module.css'
 
 export default function AppNav() {
     return (
-        <div>Ap[p navigation</div>
+        <div>App navigation</div>
     )
 }
