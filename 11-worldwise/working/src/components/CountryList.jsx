@@ -4,6 +4,7 @@ import CityItem from "./CityItem.jsx";
 import Message from "./Message.jsx";
 import CountryItem from "./CountryItem.jsx";
 
+
 export default function CountryList({cities, isLoading}) {
 
     if (isLoading) return <Spinner/>
@@ -20,7 +21,7 @@ export default function CountryList({cities, isLoading}) {
 
 
     return <ul className={styles.countryList}>
-        {countries.map((country) => <CountryItem country={country}/>)}
+        {countries.map((country) => <CountryItem country={country} key={country.country}/>)}
     </ul>
 
 }
