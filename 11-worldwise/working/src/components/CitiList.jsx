@@ -2,8 +2,10 @@ import styles from './CityList.module.css'
 import Spinner from "./Spinner.jsx";
 import CityItem from "./CityItem.jsx";
 import Message from "./Message.jsx";
+import {useCities} from "../contexts/CititesContext.jsx";
 
-export default function CitiList({cities, isLoading}) {
+export default function CitiList() {
+    const {cities, isLoading} = useCities()
 
     if (isLoading) return <Spinner/>
 
