@@ -24,7 +24,7 @@ function CitiesProvider({children}) {
                 const res = await fetch(`${BASE_URL}/cities`)
                 const data = await res.json()
                 setCities(data)
-                console.log(data)
+
             } catch {
                 alert('There was a problem')
             } finally {
@@ -41,7 +41,7 @@ function CitiesProvider({children}) {
             const res = await fetch(`${BASE_URL}/cities/${id}`)
             const data = await res.json()
             setCurrentCity(data)
-            console.log(data)
+
         } catch {
             alert('There was a problem')
         } finally {
@@ -60,7 +60,7 @@ function CitiesProvider({children}) {
 function useCities() {
     const contex = useContext(CitiesContext)
     if (contex === undefined) throw new Error('Post contex was used outside of the PostProvider')
-    console.log(contex)
+    
     return contex
 }
 

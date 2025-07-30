@@ -1,10 +1,12 @@
 // "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=0&longitude=0"
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 import styles from "./Form.module.css";
 import Button from "./Button.jsx";
 import {useNavigate} from "react-router-dom";
+import {useUrlPosition} from "../hooks/useUrlPosition.jsx";
+import Message from "./Message.jsx";
 
 export function convertToEmoji(countryCode) {
     const codePoints = countryCode
@@ -14,14 +16,48 @@ export function convertToEmoji(countryCode) {
     return String.fromCodePoint(...codePoints);
 }
 
-function Form() {
 
+const BASE_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client"
+
+function Form() {
+    const [lat, lng] = useUrlPosition()
     const navigate = useNavigate()
+    const [emoji, setEmoji] = useState()
+    const [geocodingError, setGeocodingError] = useState('')
 
     const [cityName, setCityName] = useState("");
     const [country, setCountry] = useState("");
     const [date, setDate] = useState(new Date());
     const [notes, setNotes] = useState("");
+
+
+    const [isLoadingGeocoding, setIsLoadingGeocoding] = useState();
+
+
+    useEffect(() => {
+        async function fetchCityData() {
+            try {
+                setIsLoadingGeocoding(true)
+                setGeocodingError('')
+                const res = await fetch(`${BASE_URL}?latitude=${lat}&longitude=${lng}`)
+                const data = await res.json()
+                console.log(data)
+                if (!data.countryCode) throw new Error('That doesn`t seem to be city')
+                setCityName(data.city || data.locality || '')
+                setCountry(data.countryName)
+                setEmoji(convertToEmoji(data.countryCode))
+            } catch (err) {
+                setGeocodingError(err.message)
+
+            } finally {
+                setIsLoadingGeocoding(false)
+            }
+        }
+
+        fetchCityData()
+    }, [lat, lng]);
+
+    if (geocodingError) <Message message={geocodingError}/>
 
     return (
         <form className={styles.form}>
