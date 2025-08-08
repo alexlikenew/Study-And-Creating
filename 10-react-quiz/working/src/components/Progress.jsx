@@ -1,4 +1,7 @@
-export default function Progress({index , numQuestions ,points , maxPossiblePoints , answer}){
+import {useQuiz} from "../context/QuizContext.jsx";
+
+export default function Progress(){
+    const {index , numQuestions ,points , maxPossiblePoints , answer} = useQuiz()
     return(
         <header className='progress'>
 

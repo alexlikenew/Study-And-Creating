@@ -1,6 +1,9 @@
 import Options from "./Options.jsx";
+import {useQuiz} from "../context/QuizContext.jsx";
 
-export default function Question({question , dispatch ,answer}) {console.log(question)
+export default function Question() {
+    const {question , dispatch ,answer} = useQuiz()
+
     return(
         <div>
             <h4>
