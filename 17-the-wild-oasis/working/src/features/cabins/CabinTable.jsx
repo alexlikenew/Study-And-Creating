@@ -32,7 +32,7 @@ import CabinRow from "./CabinRow.jsx";
 
 function CabinTable(props) {
     const {isPending: isLoading, data: cabins, error} = useQuery({
-        queryKey: ['cabin'],
+        queryKey: ['cabins'],
         queryFn: getCabins
     })
 
