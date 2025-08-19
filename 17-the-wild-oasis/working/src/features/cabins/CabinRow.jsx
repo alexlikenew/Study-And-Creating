@@ -42,6 +42,7 @@ import React from 'react';
 import {formatCurrency} from "../../utils/helpers.js";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {deleteCabin} from "../../services/apiCabins.jsx";
+import toast from "react-hot-toast";
 
 function CabinRow({cabin}) {
     const {id: cabinId, name, maxCapacity, regularPrice, discount, description, image} = cabin
@@ -49,13 +50,13 @@ function CabinRow({cabin}) {
     const {isPending: isDeleting, mutate} = useMutation({
         mutationFn: (id) => deleteCabin(id),
         onSuccess: () => {
-     
+            toast.success('cabin succesfully deleted')
             queryClient.invalidateQueries({
                 queryKey: ['cabins']
             })
 
         },
-        onError: err => alert(err.message)
+        onError: err => toast.error(err.message)
     })
     return (
         <TableRow role="row">
