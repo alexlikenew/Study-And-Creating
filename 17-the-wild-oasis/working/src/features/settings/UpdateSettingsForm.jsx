@@ -1,24 +1,47 @@
 import Form from '../../ui/Form';
 import FormRow from '../../ui/FormRow';
 import Input from '../../ui/Input';
+import UseSettings from "./useSettings.jsx";
+import Spinner from "../../ui/Spinner.jsx";
+import useUpdateSetting from "./useEditSettings.jsx";
 
 function UpdateSettingsForm() {
-  return (
-    <Form>
-      <FormRow label='Minimum nights/booking'>
-        <Input type='number' id='min-nights' />
-      </FormRow>
-      <FormRow label='Maximum nights/booking'>
-        <Input type='number' id='max-nights' />
-      </FormRow>
-      <FormRow label='Maximum guests/booking'>
-        <Input type='number' id='max-guests' />
-      </FormRow>
-      <FormRow label='Breakfast price'>
-        <Input type='number' id='breakfast-price' />
-      </FormRow>
-    </Form>
-  );
+
+    const {
+        isPending,
+        error,
+        settings: {minBookingLength, maxBookingLength, maxGuestsPerBooking, breakfestPrice} = {}
+    } = UseSettings()
+    const {isEditing, updateSetting} = useUpdateSetting()
+
+    function handleUpdate(e, field) {
+        const value = e.target.value;
+        console.log(value)
+        if (!value) return
+        updateSetting({[field]: value})
+    }
+
+    if (isPending) return <Spinner/>
+    return (
+        <Form>
+            <FormRow label='Minimum nights/booking'>
+                <Input type='number' id='min-nights' defaultValue={minBookingLength}
+                       onBlur={(e) => handleUpdate(e, 'minBookingLength')}/>
+            </FormRow>
+            <FormRow label='Maximum nights/booking'>
+                <Input type='number' id='max-nights' defaultValue={maxBookingLength}
+                       onBlur={(e) => handleUpdate(e, 'maxBookingLength')}/>
+            </FormRow>
+            <FormRow label='Maximum guests/booking'>
+                <Input type='number' id='max-guests' defaultValue={maxGuestsPerBooking}
+                       onBlur={(e) => handleUpdate(e, 'maxGuestsPerBooking')}/>
+            </FormRow>
+            <FormRow label='Breakfast price'>
+                <Input type='number' id='breakfast-price' defaultValue={breakfestPrice}
+                       onBlur={(e) => handleUpdate(e, 'breakfestPrice')}/>
+            </FormRow>
+        </Form>
+    );
 }
 
 export default UpdateSettingsForm;
