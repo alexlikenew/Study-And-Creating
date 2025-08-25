@@ -15,7 +15,7 @@ import useDeleteCabin from "./useDeleteCabin.jsx";
 import useEditCabin from "./useEditCabin.jsx";
 
 
-function CreateCabinForm({cabinToEdit = {}}) {
+function CreateCabinForm({cabinToEdit = {}, onCloseModal}) {
 
     const {id: editId, ...editValues} = cabinToEdit
     const isEditSession = Boolean(editId)
@@ -35,9 +35,19 @@ function CreateCabinForm({cabinToEdit = {}}) {
         const image = typeof data.image === 'string' ? data.image : data.image[0]
 
         if (isEditSession) {
-            editCabin({newCabinData: {...data, image}, id: editId}, {onSuccess: () => reset()})
+            editCabin({newCabinData: {...data, image}, id: editId}, {
+                onSuccess: () => {
+                    reset();
+                    onCloseModal?.()
+                }
+            })
         } else {
-            createCabin({...data, image: image}, {onSuccess: () => reset()})
+            createCabin({...data, image: image}, {
+                onSuccess: () => {
+                    reset();
+                    onCloseModal?.()
+                }
+            })
         }
 
 
@@ -48,7 +58,7 @@ function CreateCabinForm({cabinToEdit = {}}) {
     }
 
     return (
-        <Form onSubmit={handleSubmit(onSumbit, onError)}>
+        <Form onSubmit={handleSubmit(onSumbit, onError)} type={onCloseModal ? 'modal' : 'regular'}>
             <FormRow label="Cabin name" error={errors?.name?.message}>
                 <Input {...register('name', {required: 'This field is required'})} type="text" id="name"/>
             </FormRow>
@@ -91,7 +101,7 @@ function CreateCabinForm({cabinToEdit = {}}) {
 
             <FormRow>
                 {/* type is an HTML attribute! */}
-                <Button variation="secondary" type="reset">
+                <Button variation="secondary" type="reset" onClick={() => onCloseModal?.()}>
                     Cancel
                 </Button>
                 <Button disabled={isWorking}>{isEditSession ? 'Edit cabin' : 'Add cabin'}</Button>
