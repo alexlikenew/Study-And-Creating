@@ -45,6 +45,8 @@ import useDeleteCabin from "./useDeleteCabin.jsx";
 import {HiSquare2Stack} from "react-icons/hi2";
 import {HiPencil, HiTrash} from "react-icons/hi";
 import useCreateCabin from "./useCreateCabin.jsx";
+import Modal from "../../ui/Modal.jsx";
+import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
 
 function CabinRow({cabin}) {
     const [showForm, setShowForm] = useState(false)
@@ -72,12 +74,30 @@ function CabinRow({cabin}) {
                 {discount ? <Discount>{formatCurrency(discount)}</Discount> : <span>-</span>}
                 <div>
                     <button onClick={handleDuplicate}><HiSquare2Stack/></button>
-                    <button disabled={isDeleting} onClick={() => setShowForm(show => !show)}><HiPencil/></button>
-                    <button disabled={isDeleting} onClick={() => deleteCabin(cabinId)}><HiTrash/></button>
+
+                    <Modal>
+                        <Modal.Open opens="edit">
+                            <button disabled={isDeleting}><HiPencil/>
+                            </button>
+                        </Modal.Open>
+                        <Modal.Window name="edit">
+                            <CreateCabinForm cabinToEdit={cabin}/>
+                        </Modal.Window>
+
+                        <Modal.Open>
+                            <button disabled={isDeleting}><HiTrash/></button>
+
+                        </Modal.Open>
+                        <Modal.Window>
+                            <ConfirmDelete resourceName="cabins" disabled={isDeleting}
+                                           onConfirm={() => deleteCabin(cabinId)}/>
+                        </Modal.Window>
+                    </Modal>
+
 
                 </div>
             </TableRow>
-            {showForm && <CreateCabinForm cabinToEdit={cabin}/>}
+
 
         </>
     );
