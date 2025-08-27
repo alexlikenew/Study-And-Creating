@@ -812,10 +812,12 @@ async function run() {
         console.error('❌ Nie znaleziono żadnych plików w katalogu projektu.');
         return;
     }
+    const commitCount = Math.floor(Math.random() * 10) + 1; // Losowa liczba od 1 do 10
+    console.log(`📢 Liczba commitów do wykonania: ${commitCount}`);
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < commitCount; i++) {
         const randomFile = getRandomElement(allFiles);
-        console.log(`📄 Wybrano plik: ${randomFile}`); // <-- TU
+        console.log(`📄 Wybrano plik: ${randomFile}`);
 
         updateLastModifiedDateInFile(randomFile);
 
@@ -825,7 +827,7 @@ async function run() {
 
         await commitAndPush(relativeFilePath, commitMessage);
 
-        if (i < 9) {
+        if (i < commitCount - 1) {
             console.log('⏳ Czekam 2 minuty do następnego commita...');
             await new Promise(res => setTimeout(res, 2 * 60 * 1000)); // 2 minuty
         }
