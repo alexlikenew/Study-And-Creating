@@ -87,7 +87,6 @@ function CabinRow({cabin}) {
                                 <Modal.Open opens="delete">
                                     <Menus.Button icon={<HiTrash/>}>Delete</Menus.Button>
                                 </Modal.Open>
-
                             </Menus.List>
                         </Menus.Menu>
                         <Modal.Window name="edit">
