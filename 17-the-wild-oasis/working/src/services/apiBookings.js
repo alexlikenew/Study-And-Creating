@@ -2,21 +2,21 @@ import {getToday} from "../utils/helpers";
 import supabase from "./supabase";
 
 export async function getBookings({filter, sortBy}) {
-    let query = supabase.from('bookings').select("id , created_at , startDate , endDate , numNights , numGuests , status , totalPrice , cabins(name) , guests(fullName , email)");
+    let query = supabase.from('bookings').select("id , created_at , startDate , endDate , numNights , numGuests , status , totalPrice , cabins(name) , guests(fullName , email)", {count: 'exact'});
     // Filter
     if (filter) query[filter.method || 'eq'](filter.field, filter.value)
     // Sort
     if (sortBy) query.order(sortBy.field, {ascending: sortBy.direction === 'asc'})
     const {
         data,
-        error
+        error, count
     } = await query
     if (error) {
         console.log(error)
         throw new Error('Booking cannot be loaded')
     }
-
-    return data
+    
+    return {data, count}
 }
 
 export async function getBooking(id) {
