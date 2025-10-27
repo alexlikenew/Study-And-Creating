@@ -59,8 +59,7 @@ const PaginationButton = styled.button`
 import React from 'react';
 import {HiChevronLeft, HiChevronRight} from "react-icons/hi";
 import {useSearchParams} from "react-router-dom";
-
-const PAGE_SIZE = 10
+import {PAGE_SIZE} from "../utils/constans.js";
 
 function Pagination({count}) {
 
