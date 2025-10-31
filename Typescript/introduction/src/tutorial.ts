@@ -380,3 +380,48 @@ console.log('Working!!')
 //     employee.delegateTasks();
 // }
 //// // PRACTICE TUPLES & ENUMS =================================================
+
+// let person: [string, number] = ['john ', 25]
+//
+// let date: [number, number, number] = [12, 27, 2001]
+//
+// function getPerson(): [string, number] {
+//     return ['john', 25]
+// }
+
+// enum ServerResponseStatus {
+//     Success, Error
+// }
+//
+// interface ServerResponse {
+//     result: ServerResponseStatus;
+//     data: string[];
+// }
+//
+// function getServerResponce(): ServerResponse {
+//     return {
+//         result: 0,
+//         data: ['first']
+//     }
+// }
+//
+// const response: ServerResponse = getServerResponce()
+// console.log(response)
+
+enum UserRole {
+    Admin = 'Admin', Manager = 'Manager', Employee = 'Employee'
+}
+
+type User = {
+    id: number, name: string, role: UserRole, contact: [number, string]
+}
+
+function CreateUser(person: User) {
+    return person
+}
+
+const alex: User = {
+    id: 10, name: 'olek', role: UserRole.Admin, contact: [2, '222']
+}
+
+console.log(CreateUser(alex))

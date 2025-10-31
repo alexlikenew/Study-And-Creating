@@ -1206,7 +1206,7 @@ type User = {
     id: number;
     name: string;
     role: UserRole;
-    contact: [string, string]; // Tuple: [email, phone]
+    contact: [string, string]; // Tuple: [email, phone]  
 };
 
 // Define a function named createUser
