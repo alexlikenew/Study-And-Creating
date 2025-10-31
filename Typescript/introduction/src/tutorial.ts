@@ -222,3 +222,56 @@ console.log('Working!!')
 //     id: 2, name: 'ssss', price: 20, discount: 0
 // }
 //// // PRACTICE INTERFACE =================================================
+
+// interface Book {
+//     readonly isbn: number;
+//     title: string;
+//     author: string;
+//     genre?: string;
+//     printSomething: (someValue: number) => number;
+//
+//     printAuthor(): void;
+//
+//     printTitle(message: string): string;
+// }
+//
+// const deepWork: Book = {
+//     isbn: 123,
+//     title: 'deep work',
+//     author: 'cal newport',
+//     genre: 'self-help',
+//     printAuthor() {
+//         console.log(this.author)
+//     },
+//     printTitle(message) {
+//         return `${this.title} ${message}`
+//     },
+// //     first option
+//     printSomething: function (someValue) {
+//         return someValue
+//     }
+// }
+//
+// deepWork.printAuthor()
+// const result = deepWork.printTitle('is a result ')
+// console.log(result)
+
+interface Computer {
+    readonly id: number,
+    brand: string,
+    ram: number,
+    storage?: number
+
+    upgradeRam(capacity: number): number
+}
+
+let Hp: Computer = {
+    id: 13, brand: 'HP', ram: 10,
+    upgradeRam(capacity) {
+        this.ram = capacity
+        return this.ram
+    }
+}
+console.log(Hp.ram)
+Hp.upgradeRam(12)
+console.log(Hp.ram)
