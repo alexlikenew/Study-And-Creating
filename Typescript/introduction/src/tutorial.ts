@@ -256,22 +256,127 @@ console.log('Working!!')
 // const result = deepWork.printTitle('is a result ')
 // console.log(result)
 
-interface Computer {
-    readonly id: number,
-    brand: string,
-    ram: number,
-    storage?: number
-
-    upgradeRam(capacity: number): number
-}
-
-let Hp: Computer = {
-    id: 13, brand: 'HP', ram: 10,
-    upgradeRam(capacity) {
-        this.ram = capacity
-        return this.ram
-    }
-}
-console.log(Hp.ram)
-Hp.upgradeRam(12)
-console.log(Hp.ram)
+// interface Computer {
+//     readonly id: number,
+//     brand: string,
+//     ram: number,
+//     storage?: number
+//
+//     upgradeRam(capacity: number): number
+// }
+//
+// let Hp: Computer = {
+//     id: 13, brand: 'HP', ram: 10,
+//     upgradeRam(capacity) {
+//         this.ram = capacity
+//         return this.ram
+//     }
+// }
+// console.log(Hp.ram)
+// Hp.upgradeRam(12)
+// console.log(Hp.ram)
+// ====================================
+// interface Person {
+//     name: string;
+//
+//     getDetails(): string
+// }
+//
+// interface DodOwner {
+//     dogName: string;
+//
+//     getDogDetails(): string
+// }
+//
+// interface Person {
+//     age: number
+// }
+//
+// const person: Person = {
+//     name: 'John',
+//     age: 23,
+//     getDetails() {
+//         return `Name: ${this.name} , Age: ${this.age}`
+//     }
+// }
+//
+// interface Employee extends Person {
+//     employeeid: number
+// }
+//
+// const employee: Employee = {
+//     name: 'kane',
+//     age: 20,
+//     employeeid: 123,
+//     getDetails() {
+//         return `Name: ${this.name} , Age: ${this.age} , Emoloyee Id :${this.employeeid} `
+//     }
+// }
+//
+// // console.log(employee.getDetails())
+//
+// interface Manager extends Person, DodOwner {
+//     managePeople(): void
+// }
+//
+// const manager: Manager = {
+//     name: 'bob',
+//     age: 35,
+//     getDetails() {
+//         return `Name: ${this.name} , Age: ${this.age} `
+//     },
+//     getDogDetails() {
+//         return `Name: ${this.dogName}  `
+//     },
+//     managePeople() {
+//         console.log('Managing people')
+//     }
+// }
+// manager.managePeople()
+// ====================================
+// interface Person {
+//     name: string;
+// }
+//
+// interface DogOwner extends Person {
+//     dogName: string;
+// }
+//
+// interface Manager extends Person {
+//     managePeople(): void;
+//
+//     delegateTasks(): void;
+// }
+//
+// const employee: Person | DogOwner | Manager = getEmployee();
+// console.log(employee);
+//
+// function getEmployee(): Person | DogOwner | Manager {
+//     const random = Math.random();
+//
+//     if (random < 0.33) {
+//         return {
+//             name: 'john',
+//         };
+//     } else if (random < 0.66) {
+//         return {
+//             name: 'sarah',
+//             dogName: 'Rex',
+//         };
+//     } else {
+//         return {
+//             name: 'bob',
+//             managePeople: () => console.log('Managing people...'),
+//             delegateTasks: () => console.log('Delegating tasks...'),
+//         };
+//     }
+// }
+//
+// function isManager(obj: Person | DogOwner | Manager): obj is Manager {
+//     return 'managePeople' in obj;
+// }
+//
+// if (isManager(employee)) {
+//     employee.delegateTasks();
+// }
+//// // PRACTICE TUPLES & ENUMS =================================================
