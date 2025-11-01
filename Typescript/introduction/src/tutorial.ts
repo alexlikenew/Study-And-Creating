@@ -194,7 +194,7 @@ console.log('Working!!')
 //     if ('employees' in person) {
 //         console.log(`Tis person is a Manages and has ${person.employees.length}`)
 //     } else {
-//         console.log(`This preson is a Employee and belongs to ${person.department}`)
+//         console.log(`This preson is  Employee and belongs to ${person.department}`)
 //     }
 // }
 //
@@ -408,20 +408,207 @@ console.log('Working!!')
 // const response: ServerResponse = getServerResponce()
 // console.log(response)
 
-enum UserRole {
-    Admin = 'Admin', Manager = 'Manager', Employee = 'Employee'
-}
+// enum UserRole {
+//     Admin = 'Admin', Manager = 'Manager', Employee = 'Employee'
+// }
+//
+// type User = {
+//     id: number, name: string, role: UserRole, contact: [number, string]
+// }
+//
+// function CreateUser(person: User) {
+//     return person
+// }
+//
+// const alex: User = {
+//     id: 10, name: 'olek', role: UserRole.Admin, contact: [2, '222']
+// }
+//
+// console.log(CreateUser(alex))
 
-type User = {
-    id: number, name: string, role: UserRole, contact: [number, string]
-}
+//// // PRACTICE ASSERTION =================================================
 
-function CreateUser(person: User) {
-    return person
-}
+// let someValue: any = 'this is a string'
+// let strlLength: number = (someValue as string).length
+//
+// type Bird = {
+//     name: string
+// }
+//
+// let birdString = '{"name": "Eagle"}';
+// let dogString = '{"breed": "Poodle"}';
+//
+// let birdObject = JSON.parse((birdString))
+// let dogObject = JSON.parse((dogString))
+//
+// let bird = birdObject as Bird;
+// let dog = dogObject as Bird;
+//
+// enum Status {
+//     Pending = 'pending', Decline = 'declined '
+// }
+//
+// type User = {
+//     name: string, status: Status
+// }
+//
+// // save Status.Pending in the DB as a string
+// // retrieve string from the DB
+//
+// const statusValue = 'pending'
+//
+// const user: User = {name: 'olek', status: statusValue as Status}
 
-const alex: User = {
-    id: 10, name: 'olek', role: UserRole.Admin, contact: [2, '222']
-}
+//// // PRACTICE UNKNOWN =================================================
 
-console.log(CreateUser(alex))
+// let unknownValue: unknown;
+// unknownValue = 'Hello world'
+// unknownValue = [1, 2, 3]
+// unknownValue = 12345
+//
+// if (typeof unknownValue === 'number') {
+//     unknownValue.toFixed(2)
+// }
+
+// let someValue: never;
+
+//// // PRACTICE NEVER =================================================
+
+// type Theme = 'light' | 'dark'
+//
+// function checkTheme(theme: Theme): void {
+//     if (theme === 'light') {
+//         console.log('light theme')
+//         return
+//     }
+//     if (theme === 'dark') {
+//         console.log('dark theme')
+//         return
+//     }
+//
+// }
+//
+// enum Color {
+//     Red, Blue, Green
+// }
+//
+// function getColorName(color: Color) {
+//     switch (color) {
+//         case Color.Red :
+//             return 'Red'
+//         case Color.Blue :
+//             return 'Blue'
+//         case Color.Green:
+//             return 'Green'
+//         default:
+//             // at build time
+//             let unexpextedColor: never = color
+//             throw new Error('Unexpexted color')
+//     }
+// }
+//
+// console.log(getColorName(Color.Red))
+// console.log(getColorName(Color.Blue))
+// console.log(getColorName(Color.Green))
+
+//// // PRACTICE TYPEGUARD =================================================
+
+// type ValueType = string | number | boolean;
+//
+// let value: ValueType;
+// const random = Math.random();
+// value = random < 0.33 ? 'Hello' : random < 0.66 ? 123.456 : true;
+//
+// function checkValue(value: ValueType): void {
+//     if (typeof value === 'string') {
+//         console.log(value)
+//         return
+//     }
+//     if (typeof value === 'number') {
+//         console.log(value.toFixed(2))
+//         return;
+//     }
+//     console.log(`This is a boolean ${value}`)
+// }
+//
+// checkValue(value)
+
+// ==============
+
+// type Dog = { type: 'dog'; name: string; bark: () => void };
+// type Cat = { type: 'cat'; name: string; meow: () => void };
+// type Animal = Dog | Cat;
+
+// function makeSound(animal: Animal): void {
+//     if ('bark' in animal) {
+//         animal.bark()
+//     } else {
+//         animal.meow()
+//     }
+// }
+
+// function makeSound(animal: Animal) {
+//     if (animal.type === 'dog') {
+//         animal.bark()
+//     } else {
+//         animal.meow()
+//     }
+// }
+
+// function printLength(str: string | null | undefined): void {
+//     if (str) {
+//         console.log(str.length)
+//     } else {
+//         console.log('No string provided')
+//     }
+// }
+//
+// printLength(false)
+
+
+// function checkInput(value: Date | string): void {
+//     if (value instanceof Date) {
+//         return value.getFullYear().toString()
+//
+//     } else {
+//         return value
+//     }
+// }
+//
+// const year = checkInput(new Date());
+// const random = checkInput('2020-05-05');
+// console.log(year);
+// console.log(random);
+
+
+// type Student = {
+//     name: string;
+//     study: () => void;
+// };
+//
+// type User = {
+//     name: string;
+//     login: () => void;
+// };
+//
+// type Person = Student | User;
+//
+// const randomPerson = (): Person => {
+//     return Math.random() > 0.5
+//         ? {name: 'john', study: () => console.log('Studying')}
+//         : {name: 'mary', login: () => console.log('Logging in')};
+// };
+//
+// const person = randomPerson();
+//
+// function isStudent(person: Person): person is Student {
+//     return (person as Student).study !== undefined
+// }
+//
+// if (isStudent(person)) {
+//     person.study();
+// } else {
+//     person.login();
+// }
+
+//// // PRACTICE TYPEGUARD =================================================
