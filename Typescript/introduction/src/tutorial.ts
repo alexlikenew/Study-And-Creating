@@ -611,4 +611,186 @@ console.log('Working!!')
 //     person.login();
 // }
 
-//// // PRACTICE TYPEGUARD =================================================
+//// // PRACTICE GENERICS =================================================
+
+
+// let array1: Array<string> = ['Apple', 'Banana', 'Mango'];
+// let array2: Array<number> = [1, 2, 3];
+// let array3: Array<boolean> = [true, false, true];
+//
+// function createString(arg: string): string {
+//     return arg
+// }
+//
+// function createNumber(arg: number): number {
+//     return arg
+// }
+//
+// function genericFunction<T>(arg: T): T {
+//     return arg
+// }
+//
+// const someStringValue = genericFunction<string>('Hello world')
+// const someNumberValue = genericFunction<number>(2)
+//
+// interface GenericInterface<T> {
+//     value: T;
+//     getValue: () => T
+// }
+//
+// const genericString: GenericInterface<string> = {
+//     value: 'hello world',
+//     getValue() {
+//         return this.value;
+//     }
+// }
+//
+// async function someFunc(): Promise<string> {
+//     return 'Hello World';
+// }
+//
+// const result = someFunc();
+//
+
+
+// function generateStringArray(length: number, value: string): string[] {
+//     let result: string[] = []
+//     result = Array(length).fill(value)
+//     return result
+// }
+//
+// // console.log(generateStringArray(5, 'hello world'))
+//
+// function createArray<T>(length: number, value: T): Array<T> {
+//     let result: T[] = [];
+//     result = Array(length).fill(value);
+//     return result;
+// }
+//
+// let arrayStrings = createArray<string>(3, 'hello'); // ["hello", "hello", "hello"]
+// let arrayNumbers = createArray<number>(4, 100); // [100, 100, 100, 100]
+//
+// console.log(arrayStrings);
+// console.log(arrayNumbers);
+
+//=======================================
+// function pair<T, U>(param1: T, param2: U): [T, U] {
+//     return [param1, param2]
+// }
+//
+// let result = pair<number, string>(5, 'hello')
+// console.log(result)
+//
+// function processValue<T extends string | number>(value: T): T {
+//     console.log(value)
+//     return value;
+// }
+//
+// processValue<string>('hello')
+// processValue<number>(12)
+// =======================================
+
+// ======================================
+// type Car = {
+//     brand: string;
+//     model: string;
+// };
+//
+// const car: Car = {
+//     brand: 'ford',
+//     model: 'mustang',
+// };
+//
+// type Product = {
+//     name: string;
+//     price: number;
+// };
+//
+// const product: Product = {
+//     name: 'shoes',
+//     price: 1.99,
+// };
+//
+// type Student = {
+//     name: string;
+//     age: number;
+// };
+//
+// const student: Student = {
+//     name: 'peter',
+//     age: 20,
+// };
+//
+// function printName<T extends { name: string }>(input: T): void {
+//     console.log(input.name)
+// }
+//
+// printName(student)
+// printName(product)
+// printName(car)
+
+// ======================================
+//
+// interface StoreData<T = any> {
+//     data: T[]
+// }
+//
+// const storeNumbers: StoreData<number> = {
+//     data: [1, 2, 3, 4]
+// }
+//
+// const randomStuff: StoreData = {
+//     data: ['random', 1]
+// }
+
+//================================
+//// // PRACTICE DATA =================================================
+
+// import {z} from 'zod'
+//
+// const tourSchema = z.object({
+//     id: z.string(),
+//     name: z.string(),
+//     info: z.string(),
+//     image: z.string(),
+//     price: z.string(),
+// })
+//
+// type Tour = z.infer<typeof tourSchema>
+//
+// // type Tour = {
+// //     id: string;
+// //     name: string;
+// //     info: string;
+// //     image: string;
+// //     price: number;
+// // }
+//
+// const url = 'https://www.course-api.com/react-tours-project';
+//
+// async function fetchData(url: string): Promise<Tour[]> {
+//     try {
+//         const response = await fetch(url)
+//         if (!response.ok) {
+//             throw new Error(`Http error ! status: ${response.status}`)
+//         }
+//         const rawData: Tour[] = await response.json()
+//         const result = tourSchema.array().safeParse(rawData)
+//         if (!result.success) {
+//             throw new Error(`Invalid data ${result.error}`)
+//         }
+//         return result.data
+//
+//     } catch (error) {
+//         const errorMsg = error instanceof Error ? error.message : ' there was an error'
+//         console.log(errorMsg)
+//         return []
+//     }
+// }
+//
+// const tours = await fetchData(url)
+// tours.map((tour) => {
+//     console.log(tour.name)
+// })
+
+//// // PRACTICE FILES =================================================
