@@ -1,9 +1,10 @@
-import Component from './starter/04-events/index.tsx'
+import Component from './starter/05-challenge/index.tsx'
 
 function App() {
     return (
         <main>
-            <Component/>
+            <Component type = 'basic' name = 'susan'/>
+            <Component type = 'advanced' name = 'susan' email = 'email@gmail'/>
 
         </main>
     );
