@@ -13,12 +13,15 @@ export type TodoStore = {
 };
 
 export const useTodoStore = create<TodoStore>((set) => ({
-    todos: [{id: 1, message: "okay", completed: true}],
+    todos: [],
     addTodo: (task: Todo) =>
         set((state) => ({
             todos: [...state.todos, task],
         })),
     deleteTodo: (id: number) => set((state) => ({
         todos: state.todos.filter(item => item.id !== id)
+    })),
+    updateTodo: (task: Todo) => set((state) => ({
+        todos: [...state.todos, task],
     }))
 }));

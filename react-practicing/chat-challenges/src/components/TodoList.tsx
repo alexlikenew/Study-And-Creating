@@ -1,18 +1,21 @@
 import {type Todo, useTodoStore} from "../store/TodoStore.tsx";
+import {useState} from "react";
+import ToDoElement from "./ToDoElement.tsx";
 
 
 export function TodoList() {
 
     const toDoList = useTodoStore((state) => state.todos)
     const handleAddToDo = useTodoStore((state) => state.addTodo)
-    const handleDeleteToDo = useTodoStore((state) => state.deleteTodo)
+
+    const [message, setMessage] = useState('')
 
     function handleAddButton(e: React.FormEvent) {
         e.preventDefault()
         const newTask: Todo = {
-            id: Date.now(),
+            id: Number(Date.now()),
             completed: false,
-            message: 'test'
+            message: message
         }
         handleAddToDo(newTask)
     }
@@ -29,26 +32,19 @@ export function TodoList() {
 
                 <div className = ''>
                     {toDoList.map((item) =>
-                        <div className = 'grid grid-cols-4 p-2 bg-blue-200' key = {item.id}>
-                            <div>{item.id}</div>
-                            {item.completed ? <div>Ukonczone</div> : <div>Nie</div>}
-                            <div>
-                                {item.message}
-                            </div>
-                            <div className = 'w-full grid grid-cols-2 gap-2'>
-                                <button>Edit</button>
-                                <button onClick = {() => handleDeleteToDo(item.id)}>Delete</button>
-                            </div>
-                        </div>
+                        <ToDoElement key = {item.id}  {...item}/>
                     )}
                 </div>
             </div>
             <div className = 'mt-4 w-full'>
                 <form
-                    onSubmit = {() => handleAddButton()} action = ""
+                    onSubmit = {handleAddButton} action = ""
                     className = 'flex flex-col gap-4 w-full items-center'
                 >
-                    <input placeholder = 'Task' type = "text" className = 'border-2 border-black p-2 w-full max-w-1/2'/>
+                    <input
+                        value = {message} onChange = {(e) => setMessage(e.target.value)} placeholder = 'Task'
+                        type = "text" className = 'border-2 border-black p-2 w-full max-w-1/2'
+                    />
                     <button className = 'bg-green-300 p-2 cursor-pointer'>Dodaj</button>
                 </form>
             </div>
