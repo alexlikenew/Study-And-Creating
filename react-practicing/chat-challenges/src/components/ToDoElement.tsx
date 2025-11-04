@@ -1,7 +1,7 @@
 import {type Todo, useTodoStore} from "../store/TodoStore.tsx";
 
 export function ToDoElement(item: Todo) {
-    const {deleteTodo, updateToDo} = useTodoStore()
+    const {deleteTodo, updateToDo, showEditModal} = useTodoStore()
 
     function changeCompleteStatusTodo() {
         const newItem = {...item, completed: !item.completed}
@@ -16,7 +16,10 @@ export function ToDoElement(item: Todo) {
                 {item.message}
             </div>
             <div className = 'w-full grid grid-cols-2 gap-2'>
-                <button className = 'cursor-pointer bg-orange-300'>Edit</button>
+                <button
+                    className = 'cursor-pointer bg-orange-300' onClick = {() => showEditModal(item)}
+                >Edit
+                </button>
                 <button
                     className = 'cursor-pointer bg-red-300'
                     onClick = {() => deleteTodo(item.id)}

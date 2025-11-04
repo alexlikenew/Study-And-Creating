@@ -8,14 +8,17 @@ export type Todo = {
 
 export type TodoStore = {
     todos: Todo[];
+    openToDo: Todo;
     addTodo: (task: Todo) => void;
     deleteTodo: (id: number) => void,
     updateToDo: (task: Todo) => void,
     resetToDo: () => void,
+    showEditModal: (task: Todo) => void,
 };
 
 export const useTodoStore = create<TodoStore>((set) => ({
     todos: [],
+    openToDo: {id: 0, message: '', completed: false},
     addTodo: (task: Todo) =>
         set((state) => ({
             todos: [...state.todos, task],
@@ -28,5 +31,8 @@ export const useTodoStore = create<TodoStore>((set) => ({
     })),
     resetToDo: () => set(() => ({
         todos: []
+    })),
+    showEditModal: (task: Todo) => set(() => ({
+        openToDo: task
     }))
 }));
