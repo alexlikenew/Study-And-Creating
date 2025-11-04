@@ -1,14 +1,20 @@
 import {type Todo, useTodoStore} from "../store/TodoStore.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ToDoElement from "./ToDoElement.tsx";
 
 
 export function TodoList() {
 
-    const toDoList = useTodoStore((state) => state.todos)
-    const handleAddToDo = useTodoStore((state) => state.addTodo)
-
+    const {todos, addTodo, resetToDo} = useTodoStore();
     const [message, setMessage] = useState('')
+    const [savedTasks, setSavedTasks] = useState<string[]>(() => {
+        const saved = localStorage.getItem('savedTasks')
+        return saved ? JSON.parse(saved) : []
+    })
+    useEffect(() => {
+        localStorage.setItem('savedTasks', JSON.stringify(savedTasks))
+    }, [savedTasks])
+
 
     function handleAddButton(e: React.FormEvent) {
         e.preventDefault()
@@ -17,7 +23,9 @@ export function TodoList() {
             completed: false,
             message: message
         }
-        handleAddToDo(newTask)
+        setSavedTasks([...savedTasks, JSON.stringify(newTask)])
+        addTodo(newTask)
+        setMessage('')
     }
 
     return (
@@ -31,7 +39,7 @@ export function TodoList() {
                 </div>
 
                 <div className = ''>
-                    {toDoList.map((item) =>
+                    {todos.map((item) =>
                         <ToDoElement key = {item.id}  {...item}/>
                     )}
                 </div>
@@ -47,6 +55,7 @@ export function TodoList() {
                     />
                     <button className = 'bg-green-300 p-2 cursor-pointer'>Dodaj</button>
                 </form>
+                <button onClick = {resetToDo}>Clear list</button>
             </div>
 
 

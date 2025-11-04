@@ -1,9 +1,15 @@
 import {type Todo, useTodoStore} from "../store/TodoStore.tsx";
 
 export function ToDoElement(item: Todo) {
-    const handleDeleteToDo = useTodoStore((state) => state.deleteTodo)
+    const {deleteTodo, updateToDo} = useTodoStore()
+
+    function changeCompleteStatusTodo() {
+        const newItem = {...item, completed: !item.completed}
+        updateToDo(newItem)
+    }
+
     return (
-        <div className = 'grid grid-cols-4 p-2 bg-blue-200' key = {item.id}>
+        <div className = 'grid grid-cols-4 p-2 bg-blue-200'>
             <div>{item.id}</div>
             {item.completed ? <div>Ukonczone</div> : <div>Nie</div>}
             <div>
@@ -13,9 +19,12 @@ export function ToDoElement(item: Todo) {
                 <button className = 'cursor-pointer bg-orange-300'>Edit</button>
                 <button
                     className = 'cursor-pointer bg-red-300'
-                    onClick = {() => handleDeleteToDo(item.id)}
+                    onClick = {() => deleteTodo(item.id)}
                 >Delete
                 </button>
+                {item.completed ?
+                    <button className = 'cursor-pointer bg-red-600' onClick = {changeCompleteStatusTodo}>X</button> :
+                    <button className = 'cursor-pointer bg-green-600' onClick = {changeCompleteStatusTodo}>V</button>}
             </div>
         </div>
     );
