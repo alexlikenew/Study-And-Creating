@@ -1,0 +1,18 @@
+# Dockerfile.dev - do developmentu z hot-reload (vite)
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Zmniejszamy warstwę kopiując najpierw package.json/package-lock.json
+COPY package*.json ./
+
+RUN npm ci --silent
+
+# Kopiujemy resztę (może być przydatne; w compose nadpiszemy to volume)
+COPY . .
+
+# Eksponujemy port Vite
+EXPOSE 5173
+
+# Domyślne polecenie - start dev server
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
