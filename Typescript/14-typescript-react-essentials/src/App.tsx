@@ -1,10 +1,10 @@
-import Component from "./final/05-challenge";
+import Component from "./starter/07-reducers";
+
 
 function App() {
     return (
         <main>
-            <Component type = {'basic'} name = {'susan'}/>
-            <Component type = {'advanced'} name = {'susan'} email = 'email@'/>
+            <Component/>
         </main>
     );
 }
